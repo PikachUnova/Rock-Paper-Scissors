@@ -1,23 +1,13 @@
+let humanScore = 0;
+let computerScore = 0;
 
-const readline = require('readline');
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-function getHumanChoice() {
-  return new Promise((resolve) => {
-    rl.question('Rock, Paper or Scissors: ', (answer) => {
-      resolve(answer.trim());
-    });
-  });
-}
-
+const resultsDiv = document.querySelector("#results");
+const scoreDiv = document.querySelector("#score");
 
 function getComputerChoice() {
-  return Math.floor(Math.random() * 3);
+    return Math.floor(Math.random() * 3);
 }
+
 
 function playRound(humanChoice, computerChoice) {
    // NOTE: 
@@ -43,25 +33,29 @@ function playRound(humanChoice, computerChoice) {
         return "you lose";
     }
     else
-      return "tie";
+      return "Tie!";
 
 }
 
-function playGame()
-{
-    for (let i = 0; i < 5; i++)
-    {
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();
-        console.log(playRound(humanSelection, computerSelection));
+function handleClick(humanChoice) {
+    // stop game if someone already won
+    if (humanScore === 5 || computerScore === 5) return;
+
+    let computerChoice = getComputerChoice();
+    let result = playRound(humanChoice, computerChoice);
+
+    resultsDiv.textContent = result;
+    scoreDiv.textContent = `Player: ${humanScore} | Computer: ${computerScore}`;
+
+    if (humanScore === 5) {
+        resultsDiv.textContent = "You won the game!";
+    }
+
+    if (computerScore === 5) {
+        resultsDiv.textContent = "Computer won the game!";
     }
 }
 
-let humanScore = 0;
-let computerScore = 0;
-let humanSelection = 0;
-let computerSelection = 0;
-
-
-playGame();
-console.log("Result: " + humanScore + " vs. " + computerScore);
+document.querySelector("#rock").addEventListener("click", () => handleClick(0));
+document.querySelector("#paper").addEventListener("click", () => handleClick(1));
+document.querySelector("#scissors").addEventListener("click", () => handleClick(2));
