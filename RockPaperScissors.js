@@ -1,6 +1,17 @@
 
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
 function getHumanChoice() {
-    return Math.floor(Math.random() * 3);
+  return new Promise((resolve) => {
+    rl.question('Rock, Paper or Scissors: ', (answer) => {
+      resolve(answer.trim());
+    });
+  });
 }
 
 
@@ -36,28 +47,21 @@ function playRound(humanChoice, computerChoice) {
 
 }
 
+function playGame()
+{
+    for (let i = 0; i < 5; i++)
+    {
+        humanSelection = getHumanChoice();
+        computerSelection = getComputerChoice();
+        console.log(playRound(humanSelection, computerSelection));
+    }
+}
+
 let humanScore = 0;
 let computerScore = 0;
-let humanSelection = getHumanChoice();
-let computerSelection = getComputerChoice();
+let humanSelection = 0;
+let computerSelection = 0;
 
 
-console.log(playRound(humanSelection, computerSelection));
-
-humanSelection = getHumanChoice();
-computerSelection = getComputerChoice();
-console.log(playRound(humanSelection, computerSelection));
-
-humanSelection = getHumanChoice();
-computerSelection = getComputerChoice();
-console.log(playRound(humanSelection, computerSelection));
-
-humanSelection = getHumanChoice();
-computerSelection = getComputerChoice();
-console.log(playRound(humanSelection, computerSelection));
-
-humanSelection = getHumanChoice();
-computerSelection = getComputerChoice();
-console.log(playRound(humanSelection, computerSelection));
-
+playGame();
 console.log("Result: " + humanScore + " vs. " + computerScore);
