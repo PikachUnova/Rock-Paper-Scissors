@@ -21,7 +21,7 @@ function playRound(humanChoice, computerChoice) {
     )
     {
         humanScore++;
-        return "you win";
+        return "You Win this match";
     }
 
     else if ((humanChoice == 0 && computerChoice == 1) || 
@@ -30,7 +30,7 @@ function playRound(humanChoice, computerChoice) {
     )
     {
         computerScore++;
-        return "you lose";
+        return "You Lose this match";
     }
     else
       return "Tie!";
@@ -38,22 +38,18 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function handleClick(humanChoice) {
-    // stop game if someone already won
-    if (humanScore === 5 || computerScore === 5) return;
+    console.log("Clicked:", humanChoice);
 
     let computerChoice = getComputerChoice();
+    console.log("Computer:", computerChoice);
+
     let result = playRound(humanChoice, computerChoice);
+    console.log(result);
 
-    resultsDiv.textContent = result;
-    scoreDiv.textContent = `Player: ${humanScore} | Computer: ${computerScore}`;
-
-    if (humanScore === 5) {
-        resultsDiv.textContent = "You won the game!";
-    }
-
-    if (computerScore === 5) {
-        resultsDiv.textContent = "Computer won the game!";
-    }
+    //resultsDiv.textContent = result;
+    //scoreDiv.textContent = `Player: ${humanScore} | Computer: ${computerScore}`;
+    console.log("results:", document.querySelector("#results"));
+    console.log("score:", document.querySelector("#score"));
 }
 
 document.querySelector("#rock").addEventListener("click", () => handleClick(0));
